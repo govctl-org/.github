@@ -1,104 +1,91 @@
 # govctl-org
 
-**Bringing determinism to AI coding.**
+**Deterministic tooling for AI-assisted software delivery.**
 
----
+We build tools that make agent work:
 
-## The Problem
+- **governed** — specs, decisions, and execution live in reviewable artifacts
+- **traceable** — changes can be linked back to why they happened
+- **phase-aware** — implementation, verification, and stability are explicit
+- **local-first** — the CLI and repo remain the control plane
 
-AI coding assistants are powerful — but they lack discipline:
+## Projects
 
-- **No structure** — changes happen anywhere, anytime, in any order
-- **No traceability** — "why was this changed?" gets lost in conversation history
-- **No gates** — nothing stops half-baked code from reaching production
-- **No coordination** — multiple agents step on each other's work
+### [govctl](https://github.com/govctl-org/govctl) — Governance Harness for AI Coding
 
-The result? Fast but fragile. Productive but unpredictable.
+`govctl` is a governance-as-code CLI for teams using AI to build software seriously.
 
-## Our Mission
+It gives AI-assisted development a control plane in the repository:
 
-We build tools that enforce **structure**, **traceability**, and **phase discipline** on AI-assisted development workflows.
+- **RFCs** say what must be true
+- **ADRs** record why a design was chosen
+- **Work items** track execution and acceptance criteria
+- **Verification guards** enforce executable completion gates
 
-Every change flows through a governed lifecycle:
-
-```
-┌──────────┐     ┌──────────┐     ┌──────────┐     ┌──────────┐
-│   SPEC   │ ──▶ │   IMPL   │ ──▶ │   TEST   │ ──▶ │  STABLE  │
-│ Document │     │  Build   │     │  Verify  │     │  Ship    │
-└──────────┘     └──────────┘     └──────────┘     └──────────┘
-```
-
-No shortcuts. No chaos. Just determinism.
-
----
-
-## Products
-
-### 🔧 [govctl](https://github.com/govctl-org/govctl) — Governance CLI
-
-![Live](https://img.shields.io/badge/status-live-22c55e)
-
-Opinionated CLI for RFC-driven development. Enforces phase gates, tracks decisions, and keeps AI agents in line.
+Typical flow:
 
 ```bash
-govctl rfc new "Add user authentication"   # Create RFC
-govctl work start RFC-001                  # Begin implementation
-govctl gate check                          # Validate before advancing
-govctl phase advance                       # Move to next phase
+govctl init
+govctl status
+govctl rfc new "Caching Strategy"
+govctl adr new "Choose cache backend"
+govctl work new --active "implement caching"
 ```
 
-### ⚡ [skillc](https://github.com/govctl-org/skillc) — Skill Compiler
+Highlights:
 
-![Live](https://img.shields.io/badge/status-live-22c55e)
+- spec-first, phase-gated workflow
+- stable CLI contract for humans and agents
+- brownfield adoption through the `/migrate` workflow for agent-guided governance onboarding
+- governed artifact operations through `list`, `show`, `get`, `edit`, and lifecycle verbs
 
-Development kit for [Agent Skills](https://agentskills.io/). Scaffold, lint, compile, and analyze skills for AI coding assistants.
+### [skillc](https://github.com/govctl-org/skillc) — Development Kit for Agent Skills
+
+`skillc` helps skill authors and power users scaffold, validate, compile, search, and analyze [Agent Skills](https://agentskills.io/).
+
+Typical flow:
 
 ```bash
-skc init my-skill          # Scaffold new skill
-skc lint                   # Validate structure
-skc build                  # Compile for distribution
-skc stats                  # Analyze usage patterns
+skc init my-skill
+skc lint my-skill
+skc build my-skill
+skc stats my-skill
 ```
 
-### 🔀 jjgov — Multi-Agent Collaboration
+Highlights:
 
-![Coming Soon](https://img.shields.io/badge/status-coming%20soon-a1a1aa)
+- local authoring and validation
+- searchable compiled skill content
+- usage analytics and sync
+- MCP integration for read-side agent workflows
 
-jj-based workflow for coordinating multiple AI agents working on the same codebase. Parallel branches, clean merges, no conflicts.
+## Incubating
 
-### 🧬 everevolve — Living Project Rules
+These are active directions we are exploring, not yet stable public products:
 
-![Coming Soon](https://img.shields.io/badge/status-coming%20soon-a1a1aa)
-
-Automatically generate and evolve project rules from commit history. Your codebase teaches the AI how to contribute.
-
----
+- **jjgov** — multi-agent collaboration workflows around Jujutsu
+- **everevolve** — project rules inferred and refined from commit history
 
 ## Philosophy
 
-> _"Good programmers worry about data structures and their relationships."_
+We believe AI coding gets more useful when it is:
 
-We believe:
+- **structured enough to review**
+- **explicit enough to automate**
+- **disciplined enough to scale**
 
-- **Constraints enable creativity** — structure doesn't slow you down, chaos does
-- **Decisions should be traceable** — every "why" deserves a documented answer
-- **AI needs guardrails** — powerful tools require disciplined processes
-- **Phase gates work** — they've worked in engineering for decades
-
----
+The goal is not more ceremony. The goal is to turn fast generation into reliable delivery.
 
 ## Links
 
-| Resource       | URL                                                                 |
-| -------------- | ------------------------------------------------------------------- |
-| 🌐 Website     | [govctl.org](https://govctl.org)                                    |
-| 📖 govctl Docs | [govctl-org.github.io/govctl](https://govctl-org.github.io/govctl/) |
-| 📖 skillc Docs | [govctl-org.github.io/skillc](https://govctl-org.github.io/skillc/) |
-| 📝 Blog        | [govctl.org/blog](https://govctl.org/blog)                          |
-
----
+| Resource | URL |
+| --- | --- |
+| Website | [govctl.org](https://govctl.org) |
+| Blog | [govctl.org/blog](https://govctl.org/blog) |
+| govctl Docs | [govctl-org.github.io/govctl](https://govctl-org.github.io/govctl/) |
+| skillc Docs | [govctl-org.github.io/skillc](https://govctl-org.github.io/skillc/) |
+| Discord | [discord.gg/buBB9G8Z6n](https://discord.gg/buBB9G8Z6n) |
 
 <p align="center">
   <sub>Built with phase discipline. Governed by govctl.</sub>
 </p>
-
